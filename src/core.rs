@@ -1,11 +1,11 @@
-use failure::{Fallible};
-use reqwest::blocking::{Client};
-use serde::{Deserialize};
-use std::collections::HashMap;
+use failure::Fallible;
 use reqwest;
+use reqwest::blocking::Client;
+use serde::Deserialize;
+use std::collections::HashMap;
 use url::Url;
 
-use crate::utils::{clear_console, pretty_print};
+use crate::utils::{pretty_print};
 
 #[derive(Deserialize, Debug)]
 pub struct MarketData {
@@ -13,29 +13,37 @@ pub struct MarketData {
     ath: HashMap<String, f32>,
     market_cap: HashMap<String, f32>,
     market_cap_rank: usize,
-    high_24h: HashMap<String, f32>,
+    pub high_24h: HashMap<String, f32>,
     low_24h: HashMap<String, f32>,
     price_change_24h: f32,
-    price_change_percentage_24h_in_currency: HashMap<String, f32>,
+    pub price_change_percentage_24h_in_currency: HashMap<String, f32>,
 }
 #[derive(Deserialize, Debug)]
 pub struct CoinData {
     id: String,
-    symbol: String,
-    name: String,
+    pub symbol: String,
+    pub name: String,
     image: HashMap<String, String>,
     market_cap_rank: usize,
     pub market_data: MarketData,
 }
 
 pub async fn get_data(url: &Url) -> Fallible<CoinData> {
-    let resp: CoinData = Client::new().get(url.as_ref()).send().unwrap().json().unwrap();
+    let resp: CoinData = Client::new()
+        .get(url.as_ref())
+        .send()
+        .unwrap()
+        .json()
+        .unwrap();
     return Ok(resp);
 }
 
-pub async fn update_data(url: &Url) -> Fallible<()> {
-    clear_console();
-    let data = get_data(&url).await?;
-    pretty_print(&data);
+pub async fn update_data(urls: &Vec<Url>) -> Fallible<()> {
+    let mut coins_data: Vec<CoinData> = Vec::new();
+    for item in urls {
+        let data = get_data(item).await?;
+        coins_data.push(data);
+    }
+    pretty_print(coins_data);
     return Ok(());
 }
