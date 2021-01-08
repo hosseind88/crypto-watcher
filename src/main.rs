@@ -1,9 +1,9 @@
-use clap::{clap_app};
+use clap::clap_app;
 use cryptowatcher::{
     core::update_data,
-    utils::{parse_url},
+    utils::{clear_console, parse_url},
 };
-use failure::{Fallible};
+use failure::Fallible;
 use futures::executor::block_on;
 use std::{thread, time::Duration};
 
@@ -44,6 +44,10 @@ fn run() -> Fallible<()> {
     for item in tokens {
         urls.push(parse_url(&format!("{}{}", base_url, item)).unwrap());
     }
+
+    clear_console();
+
+    println!("Welcome to cryptowatcher 👋\nplease wait a little to initial data be fetched\nthanks for your patience");
 
     let update = Box::new(move || {
         block_on(update_data(&urls));
