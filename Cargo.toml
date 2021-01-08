@@ -3,7 +3,7 @@ name = "cryptowatcher"
 version = "0.1.0"
 authors = ["hosseind88 <hosseind88@mail.ru>"]
 edition = "2018"
-description = "A downloader written in Rust."
+description = "A cryptocurrency price tracker written in Rust."
 license = "MIT"
 
 [dependencies]
