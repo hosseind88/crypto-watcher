@@ -1,11 +1,11 @@
-use url::{ParseError, Url};
-use console::style;
-
 use crate::core::CoinData;
+use console::{self, style, StyledObject, Term};
+use prettytable::{Cell, Row, Table};
+use url::{ParseError, Url};
 
 pub fn clear_console() {
-    // clear console
-    print!("{}[2J", 27 as char);
+    let term = Term::stdout();
+    term.clear_screen();
 }
 
 pub fn parse_url(url: &str) -> Result<Url, ParseError> {
@@ -19,7 +19,42 @@ pub fn parse_url(url: &str) -> Result<Url, ParseError> {
     }
 }
 
-pub fn pretty_print(data: &CoinData) {
-    let result = format!("bitcoin price now: {}", data.market_data.current_price.get("usd").unwrap());
-    println!("{}", style(result).cyan());
+fn get_coin_color(name: String) -> StyledObject<String> {
+    let result = match name.as_ref() {
+        "Bitcoin" => style(name).yellow(),
+        "Litecoin" => style(name).blue(),
+        "Ethereum" => style(name).magenta(),
+        _ => style(name).yellow(),
+    };
+    return result.to_owned();
+}
+
+pub fn pretty_print(data: Vec<CoinData>) -> Result<(), ()> {
+    clear_console();
+    let mut table = Table::new();
+    for item in data {
+        table.add_row(Row::new(vec![
+            Cell::new(&get_coin_color(item.name).to_string()),
+            Cell::new(
+                &item
+                    .market_data
+                    .current_price
+                    .get("usd")
+                    .unwrap()
+                    .to_string(),
+            ),
+            Cell::new(&format!(
+                "24h Price Change: {:.4}%",
+                item.market_data
+                    .price_change_percentage_24h_in_currency
+                    .get("usd")
+                    .unwrap()
+                    .to_string()
+            )),
+        ]));
+    }
+
+    table.printstd();
+
+    return Ok(());
 }

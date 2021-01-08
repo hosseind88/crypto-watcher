@@ -11,15 +11,13 @@ futures = "0.3"
 indicatif = "0.15.0"
 console = "0.13.0"
 clap = "2.33.2"
-ftp = "3.0.1"
 threadpool = "1.8.1"
 failure = { version = "0.1.8", features = [] }
 url = "1.7.2"
 reqwest = {version = "0.10.8", features = ["blocking", "json"]}
 serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
-regex = "1"
 serde = "1.0.118"
-tokio = "1.0.1"
+prettytable-rs = "^0.8"
 
 [dev-dependencies]
 assert_cmd = "0.11"
