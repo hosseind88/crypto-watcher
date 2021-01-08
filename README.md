@@ -6,7 +6,7 @@ A cryptocurrency price tracker written in Rust.
 ```
 cryptowatcher 0.1.0
 Hossein Dindar <hosseind2017@gmail.com>
-A file downloader in rust
+A cryptocurrency price tracker written in Rust.
 
 USAGE:
     cryptowatcher <TOKENS>
