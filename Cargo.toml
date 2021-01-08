@@ -1,9 +1,10 @@
 [package]
 name = "cryptowatcher"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["hosseind88 <hosseind88@mail.ru>"]
 edition = "2018"
 description = "A cryptocurrency price tracker written in Rust."
+readme = "README.md"
 license = "MIT"
 
 [dependencies]
