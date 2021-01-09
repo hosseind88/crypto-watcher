@@ -5,7 +5,7 @@ use url::{ParseError, Url};
 
 pub fn clear_console() {
     let term = Term::stdout();
-    term.clear_screen();
+    term.clear_screen().unwrap();
 }
 
 pub fn parse_url(url: &str) -> Result<Url, ParseError> {

@@ -44,6 +44,6 @@ pub async fn update_data(urls: &Vec<Url>) -> Fallible<()> {
         let data = get_data(item).await?;
         coins_data.push(data);
     }
-    pretty_print(coins_data);
+    pretty_print(coins_data).unwrap();
     return Ok(());
 }
