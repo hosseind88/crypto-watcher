@@ -1,6 +1,6 @@
 [package]
 name = "cryptowatcher"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["hosseind88 <hosseind88@mail.ru>"]
 edition = "2018"
 description = "A cryptocurrency price tracker written in Rust."
