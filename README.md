@@ -4,7 +4,7 @@ A cryptocurrency price tracker written in Rust.
 ## usage
 
 ```
-cryptowatcher 0.1.1
+cryptowatcher 0.1.5
 Hossein Dindar <hosseind2017@gmail.com>
 A cryptocurrency price tracker written in Rust.
 
